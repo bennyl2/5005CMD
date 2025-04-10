@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Report Species</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar styles same as dashboard */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100%;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem 3rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .welcome-message h1 {
+            color: var(--primary-pink);
+            margin: 0 0 0.3rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message p {
+            color: var(--light-text);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(255,75,92,0.3);
+        }
+        
+        /* Report Form Styles */
+        .report-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .file-upload-label {
+            padding: 0.8rem 1.5rem;
+            background: var(--pale-pink);
+            color: var(--primary-pink);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .file-upload-label:hover {
+            background: var(--light-pink);
+            color: white;
+        }
+        
+        .file-name {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .submit-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: var(--light-pink);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.5rem;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Komodo Hub</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="public_dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="public_discuss.html"><i class="fas fa-comments"></i> Discuss Wildlife</a></li>
+                <li><a href="public_quizzes.html"><i class="fas fa-brain"></i> Wildlife Quizzes</a></li>
+                <li><a href="#" class="active"><i class="fas fa-exclamation-triangle"></i> Report Species</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-message">
+                    <h1>Report Endangered Species</h1>
+                    <p>Help conservation efforts by reporting sightings</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">P</div>
+                </div>
+            </div>
+
+            <div class="report-container">
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label class="form-label">Species Name</label>
+                        <input type="text" id="speciesName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" id="location" class="form-input" placeholder="GPS coordinates or address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Date of Sighting</label>
+                        <input type="date" id="sightingDate" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea id="description" class="form-input" required placeholder="Describe the animal's condition, behavior, and any threats you observed"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Upload Photos</label>
+                        <div class="file-upload">
+                            <label for="speciesPhoto" class="file-upload-label">
+                                <i class="fas fa-camera"></i> Choose Files
+                            </label>
+                            <span class="file-name" id="fileName">No file selected</span>
+                            <input type="file" id="speciesPhoto" accept="image/*" style="display: none;" multiple>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Report
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load user data
+            fetch('get_user.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.full_name) {
+                        document.getElementById('userAvatar').textContent = data.full_name.charAt(0).toUpperCase();
+                    }
+                });
+
+            // File upload display
+            document.getElementById('speciesPhoto').addEventListener('change', (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    document.getElementById('fileName').textContent = 
+                        files.length === 1 ? files[0].name : `${files.length} files selected`;
+                } else {
+                    document.getElementById('fileName').textContent = 'No file selected';
+                }
+            });
+
+            // Form submission
+            document.getElementById('reportForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your report! Conservation teams will review it.');
+                window.location.href = 'public_dashboard.html';
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('logout.php')
+                    .then(() => window.location.href = 'signin.html');
+            });
+
+            // Pre-fill species if coming from dashboard
+            const urlParams = new URLSearchParams(window.location.search);
+            const speciesParam = urlParams.get('species');
+            if (speciesParam) {
+                document.getElementById('speciesName').value = decodeURIComponent(speciesParam);
+            }
+        });
+    </script>
+</body>
+</html>

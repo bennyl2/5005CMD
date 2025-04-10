@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Students</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar - Matches teacher_dashboard.html */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100%;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .students-page {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem 3rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .page-title {
+            color: var(--primary-pink);
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,126,143,0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--pale-pink);
+        }
+        
+        /* Students Table */
+        .students-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .students-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+        
+        .students-table th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--pale-pink);
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+        
+        .students-table td {
+            padding: 1rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--medium-gray);
+            vertical-align: middle;
+        }
+        
+        .students-table tr {
+            transition: var(--transition);
+        }
+        
+        .students-table tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .student-name {
+            font-weight: 500;
+        }
+        
+        .student-email {
+            color: var(--light-text);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #e6f7ea;
+            color: #28a745;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .email-btn {
+            background: var(--pale-pink);
+            color: var(--primary-pink);
+        }
+        
+        .email-btn:hover {
+            background: var(--light-pink);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .students-page {
+                padding: 1.5rem;
+                margin-left: 0;
+            }
+            
+            .students-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar - Matches teacher_dashboard.html exactly -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Komodo Hub</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="teacher_dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="teacher_assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+                <li><a href="teacher_quizzes.html"><i class="fas fa-brain"></i> Quizzes</a></li>
+                <li><a href="teacher_students.html" class="active"><i class="fas fa-users"></i> Students</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Students Content -->
+        <div class="students-page">
+            <div class="page-header">
+                <h1 class="page-title"><i class="fas fa-users"></i> Your Students</h1>
+                <a href="teacher_dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+            
+            <div class="students-container">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- Students will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load students data
+            fetch('get_students.php')
+                .then(response => response.json())
+                .then(students => {
+                    const tableBody = document.getElementById('studentsTableBody');
+                    tableBody.innerHTML = '';
+                    
+                    students.forEach(student => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">${student.full_name.charAt(0).toUpperCase()}</div>
+                                    <div>
+                                        <div class="student-name">${student.full_name}</div>
+                                        <div class="student-email">${student.email}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>
+                                <button class="action-btn email-btn">
+                                    <i class="fas fa-envelope"></i> Message
+                                </button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading students:', error);
+                    document.getElementById('studentsTableBody').innerHTML = `
+                        <tr>
+                            <td colspan="3" style="text-align: center; padding: 2rem; color: var(--light-text)">
+                                Error loading students. Please try again later.
+                            </td>
+                        </tr>
+                    `;
+                });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('logout.php')
+                    .then(() => window.location.href = 'signin.html');
+            });
+        });
+    </script>
+</body>
+</html>

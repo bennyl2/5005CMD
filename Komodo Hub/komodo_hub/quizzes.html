@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Quizzes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .quiz-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .page-title {
+            color: var(--primary-pink);
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,126,143,0.3);
+        }
+        
+        .btn i {
+            font-size: 0.9rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--pale-pink);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .empty-state i {
+            font-size: 2.5rem;
+            color: var(--light-pink);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            margin: 0;
+            color: var(--light-text);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        /* Coming Soon Banner */
+        .coming-soon {
+            background: var(--pale-pink);
+            border-left: 4px solid var(--primary-pink);
+            padding: 1rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .coming-soon i {
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-page {
+                padding: 1.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-page">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-brain"></i> Quizzes</h1>
+            <a href="dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+        
+        <div class="coming-soon">
+            <i class="fas fa-info-circle"></i>
+            <p>Quizzes will be available soon from your instructors</p>
+        </div>
+        
+        <div class="empty-state">
+            <i class="far fa-clipboard"></i>
+            <h3>No Quizzes Available</h3>
+            <p>Your instructors haven't posted any quizzes yet. Check back later!</p>
+        </div>
+    </div>
+</body>
+</html>

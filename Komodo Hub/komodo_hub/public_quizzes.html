@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Wildlife Quizzes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100%;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem 3rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .welcome-message h1 {
+            color: var(--primary-pink);
+            margin: 0 0 0.3rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message p {
+            color: var(--light-text);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(255,75,92,0.3);
+        }
+        
+        .quiz-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .quiz-title {
+            color: var(--primary-pink);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .quiz-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--light-text);
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .quiz-description {
+            margin: 1rem 0;
+        }
+        
+        .start-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .start-btn:hover {
+            background: var(--light-pink);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.5rem;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Komodo Hub</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="public_dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="public_discuss.html"><i class="fas fa-comments"></i> Discuss Wildlife</a></li>
+                <li><a href="public_quizzes.html" class="active"><i class="fas fa-brain"></i> Wildlife Quizzes</a></li>
+                <li><a href="report_species.html"><i class="fas fa-exclamation-triangle"></i> Report Species</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-message">
+                    <h1>Wildlife Quizzes</h1>
+                    <p>Test your knowledge about endangered species</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">P</div>
+                </div>
+            </div>
+
+            <div class="quiz-card">
+                <h3 class="quiz-title">Komodo Dragon Conservation</h3>
+                <div class="quiz-meta">
+                    <span><i class="fas fa-clock"></i> 10 min</span>
+                    <span><i class="fas fa-question-circle"></i> 10 questions</span>
+                </div>
+                <p class="quiz-description">
+                    Test your knowledge about the world's largest lizard and its conservation status.
+                </p>
+                <button class="start-btn" onclick="startQuiz('komodo')">Start Quiz</button>
+            </div>
+
+            <div class="quiz-card">
+                <h3 class="quiz-title">Endangered Marine Life</h3>
+                <div class="quiz-meta">
+                    <span><i class="fas fa-clock"></i> 8 min</span>
+                    <span><i class="fas fa-question-circle"></i> 10 questions</span>
+                </div>
+                <p class="quiz-description">
+                    How much do you know about threatened ocean species and coral reefs?
+                </p>
+                <button class="start-btn" onclick="startQuiz('marine')">Start Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            fetch('get_user.php')
+                .then(response => {
+                    if (!response.ok) {
+                        window.location.href = 'signin.html';
+                        throw new Error('Not authenticated');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.full_name) {
+                        document.getElementById('userAvatar').textContent = data.full_name.charAt(0).toUpperCase();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('logout.php')
+                    .then(() => window.location.href = 'signin.html');
+            });
+        });
+
+        function startQuiz(quizType) {
+            window.location.href = `${quizType}_quiz.html`;
+        }
+    </script>
+</body>
+</html>
+[file content end]

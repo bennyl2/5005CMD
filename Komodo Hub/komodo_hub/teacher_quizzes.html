@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Teacher Quizzes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .quiz-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .page-title {
+            color: var(--primary-pink);
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,126,143,0.3);
+        }
+        
+        .btn i {
+            font-size: 0.9rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--pale-pink);
+        }
+        
+        /* Quiz Cards */
+        .quiz-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-title {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+        }
+        
+        .quiz-meta {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .meta-item i {
+            color: var(--primary-pink);
+        }
+        
+        .quiz-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .edit-btn {
+            background: var(--pale-pink);
+            color: var(--primary-pink);
+        }
+        
+        .delete-btn {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .publish-btn {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        /* Create Quiz */
+        .create-quiz {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-page {
+                padding: 1.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .quiz-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .quiz-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<!-- [Previous head section remains the same] -->
+
+<body>
+    <div class="quiz-page">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-brain"></i> Quizzes</h1>
+            <a href="teacher_dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+        
+        <!-- Create New Quiz -->
+        <div class="create-quiz">
+            <h2><i class="fas fa-plus-circle"></i> Create New Quiz</h2>
+            <div class="form-group">
+                <label class="form-label">Quiz Title</label>
+                <input type="text" class="form-input" placeholder="Enter quiz title">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input form-textarea" placeholder="Enter quiz description"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Available From</label>
+                <input type="datetime-local" class="form-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Available To</label>
+                <input type="datetime-local" class="form-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Time Limit (minutes)</label>
+                <input type="number" class="form-input" placeholder="30">
+            </div>
+            <button class="btn"><i class="fas fa-save"></i> Create Quiz</button>
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state">
+            <i class="fas fa-question-circle"></i>
+            <h3>No Quizzes Created Yet</h3>
+            <p>When you create quizzes, they will appear here and become available to students.</p>
+        </div>
+    </div>
+</body>

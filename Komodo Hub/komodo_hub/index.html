@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="welcome-content">
+                <h1>Welcome to Komodo Hub</h1>
+                <p>Join our community and unlock exclusive features</p>
+                <div class="divider"></div>
+                <p class="existing-account">Already a member? <a href="signin.html" class="auth-link">Sign In</a></p>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-container">
+                <h2 class="form-title">Create Account</h2>
+                <form id="signupForm">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <input type="text" id="fullName" name="name" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <select id="category" name="category" required>
+                                <option value="" disabled selected>Select Category</option>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="public-user">Public user</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="tel" id="contactNo" name="contact" placeholder="Contact Number">
+                        </div>
+                        <div class="input-group password-group">
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                            <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="institute" name="institute" placeholder="Institute/Community">
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-btn">Sign Up</button>
+                </form>
+                <div class="auth-footer">
+                    <p>By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

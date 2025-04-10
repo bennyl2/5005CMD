@@ -1,0 +1,481 @@
+[file name]: komodo_quiz.html
+[file content begin]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Dragon Quiz | Komodo Hub</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-title {
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-description {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .timer {
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+        
+        .question-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .question {
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .options {
+            display: grid;
+            gap: 0.8rem;
+        }
+        
+        .option {
+            padding: 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .option:hover {
+            background: var(--pale-pink);
+            border-color: var(--light-pink);
+        }
+        
+        .option.selected {
+            background: var(--pale-pink);
+            border-color: var(--primary-pink);
+        }
+        
+        .option.correct {
+            background: #e6ffed;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background: #ffe6e6;
+            border-color: #dc3545;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background: var(--light-pink);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--pale-pink);
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .result-title {
+            color: var(--primary-pink);
+            margin-bottom: 1rem;
+        }
+        
+        .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat {
+            background: var(--pale-pink);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-pink);
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 1.5rem;
+            }
+            
+            .result-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+</head>
+<body>
+   <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">Komodo Dragon Quiz</h1>
+            <p class="quiz-description">Test your knowledge about the world's largest lizard</p>
+            <div class="timer">Time: <span id="timer">00:00</span></div>
+        </div>
+        
+        <div id="quiz-content">
+            <!-- Questions will be loaded here -->
+        </div>
+        
+        <div class="navigation">
+            <button id="prevBtn" class="btn btn-outline" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+            <button id="nextBtn" class="btn">Next <i class="fas fa-arrow-right"></i></button>
+            <button id="submitBtn" class="btn" style="display: none;">Submit Quiz</button>
+        </div>
+        
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Quiz Completed!</h2>
+            <div class="result-stats">
+                <div class="stat">
+                    <div class="stat-value" id="score">0</div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="timeTaken">00:00</div>
+                    <div class="stat-label">Time Taken</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="attempts">1</div>
+                    <div class="stat-label">Attempts</div>
+                </div>
+            </div>
+            <button id="retakeBtn" class="btn"><i class="fas fa-redo"></i> Retake Quiz</button>
+            <a href="public_quizzes.html" class="btn btn-outline"><i class="fas fa-home"></i> Back to Quizzes</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            
+             {
+                question: "What is the scientific name of the Komodo dragon?",
+                options: ["Varanus komodoensis", "Draco komodo", "Python komodocus", "Lacerta komodo"],
+                answer: 0
+            },
+            {
+                question: "Which islands are Komodo dragons native to?",
+                options: ["Galapagos Islands", "Komodo, Rinca, Flores, Gili Motang", "Hawaiian Islands", "Canary Islands"],
+                answer: 1
+            },
+            {
+                question: "What is the average length of an adult Komodo dragon?",
+                options: ["1-2 meters", "2-3 meters", "3-4 meters", "4-5 meters"],
+                answer: 1
+            },
+            {
+                question: "What is the primary diet of Komodo dragons?",
+                options: ["Plants and fruits", "Insects", "Carrion and live prey", "Fish"],
+                answer: 2
+            },
+            {
+                question: "How do Komodo dragons primarily hunt their prey?",
+                options: ["Chasing at high speed", "Ambush tactics", "Using venomous bite", "Both B and C"],
+                answer: 3
+            },
+            {
+                question: "What is the conservation status of Komodo dragons?",
+                options: ["Least Concern", "Vulnerable", "Endangered", "Critically Endangered"],
+                answer: 2
+            },
+            {
+                question: "How long can Komodo dragons live in the wild?",
+                options: ["Up to 10 years", "Up to 20 years", "Up to 30 years", "Up to 50 years"],
+                answer: 2
+            },
+            {
+                question: "What unique feature do Komodo dragons have in their saliva?",
+                options: ["Antibacterial properties", "Multiple strains of bacteria", "Neutral pH", "Sweet taste"],
+                answer: 1
+            },
+            {
+                question: "How do female Komodo dragons reproduce without males?",
+                options: ["They can't", "Budding", "Parthenogenesis", "Binary fission"],
+                answer: 2
+            },
+            {
+                question: "What is the main threat to Komodo dragons?",
+                options: ["Habitat loss", "Climate change", "Overhunting", "All of the above"],
+                answer: 3
+            }
+
+        ];
+
+        let currentQuestion = 0;
+        let selectedAnswers = Array(questions.length).fill(null);
+        let score = 0;
+        let startTime;
+        let timerInterval;
+        let attempts = localStorage.getItem('komodoAttempts') ? parseInt(localStorage.getItem('komodoAttempts')) : 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            attempts++;
+            localStorage.setItem('komodoAttempts', attempts);
+            startTime = new Date();
+            startTimer();
+            loadQuestion();
+            
+            document.getElementById('prevBtn').addEventListener('click', prevQuestion);
+            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+            document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+            document.getElementById('retakeBtn').addEventListener('click', retakeQuiz);
+        });
+         function startTimer() {
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const diff = Math.floor((now - startTime) / 1000);
+                const minutes = Math.floor(diff / 60).toString().padStart(2, '0');
+                const seconds = (diff % 60).toString().padStart(2, '0');
+                document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const quizContent = document.getElementById('quiz-content');
+            const question = questions[currentQuestion];
+            
+            quizContent.innerHTML = `
+                <div class="question-container">
+                    <div class="question">${currentQuestion + 1}. ${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option ${selectedAnswers[currentQuestion] === index ? 'selected' : ''}" 
+                                 data-index="${index}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectAnswer);
+            });
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').style.display = currentQuestion === questions.length - 1 ? 'none' : 'block';
+            document.getElementById('submitBtn').style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
+        }
+
+        function selectAnswer(e) {
+            const selectedIndex = parseInt(e.target.getAttribute('data-index'));
+            selectedAnswers[currentQuestion] = selectedIndex;
+            
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            e.target.classList.add('selected');
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            
+            // Calculate score
+            score = 0;
+            questions.forEach((question, index) => {
+                if (selectedAnswers[index] === question.answer) {
+                    score++;
+                }
+            });
+            
+            // Calculate time taken
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(timeDiff / 60).toString().padStart(2, '0');
+            const seconds = (timeDiff % 60).toString().padStart(2, '0');
+            const timeTaken = `${minutes}:${seconds}`;
+            
+            // Show results
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            
+            document.getElementById('score').textContent = `${score}/${questions.length}`;
+            document.getElementById('timeTaken').textContent = timeTaken;
+            document.getElementById('attempts').textContent = attempts;
+            
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            // Save results to localStorage
+            const quizResults = JSON.parse(localStorage.getItem('komodoResults') || '[]');
+            quizResults.push({
+                score: score,
+                timeTaken: timeTaken,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('komodoResults', JSON.stringify(quizResults));
+
+            // Save results to database
+            saveQuizResult('komodo', score, timeTaken);
+        }
+
+        async function saveQuizResult(quizType, score, timeTaken) {
+            try {
+                const response = await fetch('save_quiz_result.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        quiz_type: quizType,
+                        score: score,
+                        time_taken: timeTaken
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to save quiz result');
+                }
+
+                console.log('Quiz result saved to database:', data);
+            } catch (error) {
+                console.error('Error saving quiz result:', error);
+                // Optionally show a non-intrusive message to the user
+                const errorElement = document.createElement('div');
+                errorElement.textContent = 'Note: Your result couldn\'t be saved to the server.';
+                errorElement.style.color = 'var(--primary-pink)';
+                errorElement.style.marginTop = '1rem';
+                document.getElementById('resultContainer').appendChild(errorElement);
+            }
+        }
+        fetch('save_quiz_result.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        quiz_type: 'komodo', 
+        score: score,
+        time_taken: `${minutes}:${seconds}`
+    })
+})
+.then(response => response.json())
+.then(data => {
+    if (!data.success) {
+        console.error('Failed to save quiz result to database');
+    }
+})
+.catch(error => {
+    console.error('Error saving quiz result:', error);
+});
+
+        function retakeQuiz() {
+            currentQuestion = 0;
+            selectedAnswers = Array(questions.length).fill(null);
+            score = 0;
+            startTime = new Date();
+            
+            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('prevBtn').style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            
+            startTimer();
+            loadQuestion();
+        }
+
+    </script>
+</body>
+</html>

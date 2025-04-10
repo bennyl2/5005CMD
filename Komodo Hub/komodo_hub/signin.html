@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="welcome-content">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue your journey with us</p>
+                <div class="divider"></div>
+                <p class="existing-account">New to Komodo? <a href="index.html" class="auth-link">Sign Up</a></p>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-container">
+                <h2 class="form-title">Sign In</h2>
+                <form id="loginForm">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <input type="text" id="loginName" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group password-group">
+                            <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+                            <span class="toggle-password" onclick="togglePassword('loginPassword')">👁️</span>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember"> Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">Sign In</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="index.html">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

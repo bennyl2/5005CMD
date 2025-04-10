@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Student Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Pink Sidebar */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100%;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem 3rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .welcome-message h1 {
+            color: var(--primary-pink);
+            margin: 0 0 0.3rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message p {
+            color: var(--light-text);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(255,75,92,0.3);
+        }
+        
+        /* Dashboard Cards */
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .card-title {
+            color: var(--primary-pink);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 1.1rem;
+        }
+        
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--light-text);
+            background: var(--pale-pink);
+            border-radius: var(--border-radius);
+        }
+        
+        .empty-state i {
+            font-size: 2.5rem;
+            color: var(--light-pink);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            margin: 0;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 240px;
+                padding: 1.5rem 1rem;
+            }
+            .main-content {
+                margin-left: 240px;
+                padding: 1.5rem 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 220px;
+            }
+            .main-content {
+                margin-left: 220px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Pink Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Komodo Hub</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+                <li><a href="quizzes.html"><i class="fas fa-brain"></i> Quizzes</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-message">
+                    <h1>Welcome, <span id="studentName">Student</span>!</h1>
+                    <p><span id="instituteName">Loading institute...</span></p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">S</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Overview -->
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-info-circle"></i> Your Overview</h2>
+                <div class="empty-state">
+                    <i class="fas fa-smile"></i>
+                    <h3>All Caught Up!</h3>
+                    <p>You have no pending tasks right now. Check back later for new assignments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load user data
+            fetch('get_user.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
+                    // Update the welcome message
+                    const studentName = document.getElementById('studentName');
+                    const instituteName = document.getElementById('instituteName');
+                    const userAvatar = document.getElementById('userAvatar');
+                    
+                    if (data.full_name) {
+                        studentName.textContent = data.full_name;
+                        userAvatar.textContent = data.full_name.charAt(0).toUpperCase();
+                    }
+                    
+                    if (data.institute) {
+                        instituteName.textContent = data.institute;
+                    } else {
+                        instituteName.textContent = "No institute specified";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Fallback display if there's an error
+                    document.getElementById('instituteName').textContent = "University";
+                });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('logout.php')
+                    .then(() => window.location.href = 'signin.html');
+            });
+        });
+    </script>
+</body>
+</html>
+       

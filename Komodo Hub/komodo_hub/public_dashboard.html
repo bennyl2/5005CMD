@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Public Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Pink Sidebar */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100%;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem 3rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .welcome-message h1 {
+            color: var(--primary-pink);
+            margin: 0 0 0.3rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message p {
+            color: var(--light-text);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(255,75,92,0.3);
+        }
+        
+        /* Dashboard Cards */
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .card-title {
+            color: var(--primary-pink);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--light-text);
+            background: var(--pale-pink);
+            border-radius: var(--border-radius);
+        }
+        
+        /* Endangered Species Section */
+        .species-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .species-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .species-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .species-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .species-info {
+            padding: 1.2rem;
+        }
+        
+        .species-name {
+            color: var(--primary-pink);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .species-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #FFEB3B;
+            color: #000;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+        
+        .report-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .report-btn:hover {
+            background: var(--light-pink);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.5rem;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Pink Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Komodo Hub</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="public_dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="public_discuss.html"><i class="fas fa-comments"></i> Discuss Wildlife</a></li>
+                <li><a href="public_quizzes.html"><i class="fas fa-brain"></i> Wildlife Quizzes</a></li>
+                <li><a href="report_species.html"><i class="fas fa-exclamation-triangle"></i> Report Species</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-message">
+                    <h1>Welcome, <span id="userName">Public User</span>!</h1>
+                    <p>Join the wildlife conservation community</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">P</div>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-envelope"></i> Messages</h2>
+                <div class="empty-state">
+                    <i class="fas fa-comment-slash"></i>
+                    <h3>No Messages Yet</h3>
+                    <p>When you receive messages from other users, they'll appear here.</p>
+                </div>
+            </div>
+
+            <!-- Endangered Species Section -->
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-paw"></i> Endangered Species</h2>
+                <div class="species-container">
+                    <div class="species-card">
+                        <img src="https://www.gratistodo.com/wp-content/uploads/2017/03/Dragon-Komodo-1.jpg" alt="Komodo Dragon" class="species-image">
+                        <div class="species-info">
+                            <h3 class="species-name">Komodo Dragon</h3>
+                            <span class="species-status">Vulnerable</span>
+                            <p>The world's largest lizard found in Indonesian islands.</p>
+                            <button class="report-btn"><i class="fas fa-flag"></i> Report Sighting</button>
+                        </div>
+                    </div>
+                    <div class="species-card">
+                        <img src="https://www.tripsavvy.com/thmb/a5EQOXE72C9T4lWIZ2UBS7q3KbM=/2121x1414/filters:fill(auto,1)/GettyImages-107246950-58fe92e35f9b581d592f8a4f.jpg" alt="Orangutan" class="species-image">
+                        <div class="species-info">
+                            <h3 class="species-name">Orangutan</h3>
+                            <span class="species-status">Critically Endangered</span>
+                            <p>Great apes native to Indonesia and Malaysia.</p>
+                            <button class="report-btn"><i class="fas fa-flag"></i> Report Sighting</button>
+                        </div>
+                    </div>
+                    <div class="species-card">
+                        <img src="https://t2.ea.ltmcdn.com/es/razas/9/0/9/leopardo-de-amur_909_0_orig.jpg" alt="Amur Leopard" class="species-image">
+                        <div class="species-info">
+                            <h3 class="species-name">Amur Leopard</h3>
+                            <span class="species-status">Critically Endangered</span>
+                            <p>One of the world's rarest big cats with fewer than 100 left.</p>
+                            <button class="report-btn"><i class="fas fa-flag"></i> Report Sighting</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load user data
+            fetch('get_user.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.full_name) {
+                        document.getElementById('userName').textContent = data.full_name;
+                        document.getElementById('userAvatar').textContent = data.full_name.charAt(0).toUpperCase();
+                    }
+                });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('logout.php')
+                    .then(() => window.location.href = 'signin.html');
+            });
+
+            // Report button functionality
+            document.querySelectorAll('.report-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const species = btn.closest('.species-card').querySelector('.species-name').textContent;
+                    window.location.href = `report_species.html?species=${encodeURIComponent(species)}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

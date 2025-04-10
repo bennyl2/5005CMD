@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komodo Hub - Teacher Assignments</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4b5c;
+            --light-pink: #ff7eb3;
+            --pale-pink: #fff0f3;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-text);
+        }
+        
+        .assignment-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .page-title {
+            color: var(--primary-pink);
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,126,143,0.3);
+        }
+        
+        .btn i {
+            font-size: 0.9rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--pale-pink);
+        }
+        
+        /* Assignment Cards */
+        .assignment-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .assignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .assignment-title {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+        }
+        
+        .assignment-meta {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .meta-item i {
+            color: var(--primary-pink);
+        }
+        
+        .assignment-desc {
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Submissions Table */
+        .submissions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .submissions-table th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--pale-pink);
+            color: var(--primary-pink);
+        }
+        
+        .submissions-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .submissions-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .grade-input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+        }
+        
+        .submit-grade {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-grade:hover {
+            background: var(--light-pink);
+        }
+        
+        /* Create Assignment */
+        .create-assignment {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        @media (max-width: 768px) {
+            .assignment-page {
+                padding: 1.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .assignment-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .assignment-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .submissions-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<!-- [Previous head section remains the same] -->
+
+<body>
+    <div class="assignment-page">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-tasks"></i> Assignments</h1>
+            <a href="teacher_dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+        
+        <!-- Create New Assignment -->
+        <div class="create-assignment">
+            <h2><i class="fas fa-plus-circle"></i> Create New Assignment</h2>
+            <div class="form-group">
+                <label class="form-label">Assignment Title</label>
+                <input type="text" class="form-input" placeholder="Enter assignment title">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input form-textarea" placeholder="Enter assignment description"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <input type="datetime-local" class="form-input">
+            </div>
+            <button class="btn"><i class="fas fa-save"></i> Create Assignment</button>
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>No Assignments Created Yet</h3>
+            <p>When you create assignments, they will appear here along with student submissions.</p>
+        </div>
+    </div>
+</body>
